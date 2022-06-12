@@ -5,7 +5,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  HashRouter
 } from "react-router-dom";
 import { HeaderComponent } from './HeaderComponent';
 import { FooterComponent } from './FooterComponent';
@@ -19,13 +18,13 @@ root.render(
   <React.StrictMode>
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '100vh' }}>
       <HeaderComponent />
-      <HashRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter>
         <Routes>
-          <Route path={`/museum`} element={<HomeComponent />} />
-          <Route path={`/museum/old/:id`} element={<MaterialComponent mode='old' />} />
-          <Route path={`/museum/new/:id`} element={<MaterialComponent mode='new' />} />
+          <Route path={`/`} element={<HomeComponent />} />
+          <Route path={`/old/:id`} element={<MaterialComponent mode='old' />} />
+          <Route path={`/new/:id`} element={<MaterialComponent mode='new' />} />
         </Routes>
-      </HashRouter>
+        </BrowserRouter>
       <FooterComponent />
     </div>
   </React.StrictMode>
