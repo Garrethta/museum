@@ -21,9 +21,9 @@ root.render(
       <HeaderComponent />
       <HashRouter basename={process.env.PUBLIC_URL}>
         <Routes>
-          <Route path={`/`} element={<HomeComponent />} />
-          <Route path={`/old/:id`} element={<MaterialComponent mode='old' />} />
-          <Route path={`/new/:id`} element={<MaterialComponent mode='new' />} />
+          <Route path={`/museum`} element={<HomeComponent />} />
+          <Route path={`/museum/old/:id`} element={<MaterialComponent mode='old' />} />
+          <Route path={`/museum/new/:id`} element={<MaterialComponent mode='new' />} />
         </Routes>
       </HashRouter>
       <FooterComponent />
