@@ -1,46 +1,175 @@
-# Getting Started with Create React App
+# Svelte Webpack Starter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A starter template for [Svelte](https://svelte.dev) that comes preconfigured with Webpack, TypeScript, SCSS, Babel,
+Autoprefixer, and HMR.
 
-## Available Scripts
+- [Getting started](#getting-started)
+	- [Installation](#installation)
+	- [Starting the development server](#starting-the-development-server)
+	- [Building for production](#building-for-production)
+	- [Running in production](#running-in-production)
+- [Usage](#usage)
+	- [Global stylesheets](#global-stylesheets)
+	- [Single page applications](#single-page-applications)
+	- [Browsers list](#browsers-list)
+	- [Babel customization](#babel-customization)
+	- [Source maps in production](#source-maps-in-production)
+	- [Import path aliases](#import-path-aliases)
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+## Getting started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Installation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Pull the template files with [`degit`](https://github.com/Rich-Harris/degit) and install dependencies.
 
-### `yarn test`
+**🚀 Webpack 5 (recommended)**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npx degit baileyherbert/svelte-webpack-starter
+npm install
+```
 
-### `yarn build`
+**🚀 Webpack 4**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npx degit baileyherbert/svelte-webpack-starter#4
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Starting the development server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Run the `dev` script to start a live development server with hot module replacement. Then check the output for a link
+to the app, which is usually `http://localhost:8080/`:
 
-### `yarn eject`
+```bash
+npm run dev
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Building for production
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Run the `build` script to bundle the app for production. The bundle will be created at `/public/build/` and the `public`
+directory will contain all files you need to host the app:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm run build
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+> 💡 **Tip:** You can quickly test the production build by running `npm start` locally.
 
-## Learn More
+### Running in production
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+First upload the following files and folders to your target server:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `package.json`
+- `package-lock.json`
+- `public`
+
+Then install dependencies:
+
+```bash
+npm install --production
+```
+
+Finally run the `start` command to launch the included web server:
+
+```bash
+npm start
+```
+
+---
+
+## Usage
+
+### Global stylesheets
+
+Add one or more global stylesheets to the bundle by editing the `stylesheets` variable at the top of
+`webpack.config.ts`:
+
+```ts
+const stylesheets = [
+    './src/styles/index.scss'
+];
+```
+
+You can specify `css`, `scss`, and `sass` files here, and they will be compiled and minified as necessary. These styles
+will be added to the beginning of the bundle in the order specified. Svelte's styles will always appear last.
+
+### Single page applications
+
+For single page applications that use history routing instead of hash routing, edit the `package.json` file to serve
+the `index.html` file when a requested file is not found:
+
+- Add the `--history-api-fallback` flag to the `"dev"` command
+- Add the `--single` flag to the `"start"` command.
+
+```json
+"scripts": {
+    "dev": "webpack serve --history-api-fallback",
+    "start": "serve public --listen 8080 --single",
+}
+```
+
+### Browsers list
+
+The bundle will be compiled to run on the browsers specified in `package.json`:
+
+```json
+"browserslist": [
+    "defaults"
+]
+```
+
+The default value is recommended. If you wish to customize this, please refer to the list of
+[example browserslist queries](https://github.com/browserslist/browserslist#full-list).
+
+> 💡 **Note:** This template includes `core-js` and `regenerator-runtime` which means your source code will be
+> transpiled and polyfilled to run on old browsers automatically.
+
+### Babel customization
+
+Production builds are compiled with Babel automatically. If you wish to disable it, edit the `webpack.config.ts` file:
+
+```ts
+const useBabel = false;
+```
+
+Babel is disabled during development in order to improve build speeds. Please enable it manually if you need:
+
+```ts
+const useBabelInDevelopment = true;
+```
+
+### Source maps in production
+
+Source maps are generated automatically during development. They are not included in production builds by default. If
+you wish to change this behavior, edit the `webpack.config.ts` file:
+
+```ts
+const sourceMapsInProduction = true;
+```
+
+### Import path aliases
+
+Define import path aliases from the `tsconfig.json` file. For example:
+
+```json
+"paths": {
+    "@stores/*": ["src/stores/*"]
+}
+```
+
+You can then import files under these aliases and Webpack will resolve them. Your code editor should also use them
+for automatic imports:
+
+```ts
+import { users } from '@stores/users'; // src/stores/users.ts
+```
+
+The root directory is configured as a base path for imports. This means you can also import modules with an absolute
+path from anywhere in the project instead of using a large number of `..` to traverse directories.
+
+```ts
+import { users } from 'src/stores/users';
+```
