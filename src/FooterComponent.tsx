@@ -17,14 +17,11 @@ export function FooterComponent() {
 							<li><a href="#">Обратная связь</a></li>
 						</ul>
 						<div style={{display:'flex',gap:'10px', alignSelf:'center'}}>
-							<div>djvjd</div>
-							<div>djvjd</div>
-							<div>djvjd</div>
+							<div>YouTube</div>
+							<div>VK</div>
+							<div>Telegram</div>
 						</div>
 					</div>
-					{/* <div className="footer__rights">
-						(с) 2019. Все права защищены.
-					</div> */}
 				</div>
 			</footer>
 		</>)

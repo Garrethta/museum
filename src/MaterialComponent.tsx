@@ -29,6 +29,7 @@ export function MaterialComponent(props: { mode: 'old' | 'new' }) {
 					res.fields.Attachments.shift()
 				}
 				setMaterial(res)
+				document.title = res.fields.Name
 			})
 			.catch((e) => console.warn(e))
 	}, [])
