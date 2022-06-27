@@ -94,7 +94,7 @@ export function HomeComponent() {
                       }}>
                         НЕТ ИЗОБРАЖЕНИЯ
                       </div>}
-                    {e.fields.Attachments && <img src={e.fields.Attachments[0]} alt="" style={{ border: '3px solid #000' }} />}
+                      {e.fields.Attachments && <img src={e.fields.Attachments[0].thumbnails.large.url} alt="" style={{ border: '3px solid #000', width: '300px', height: '300px',objectFit:'cover' }} />}
                     <span style={{ marginTop: '20px', fontSize: '25px' }}>{e.fields.Name}</span>
                   </div>
                 </Link>
