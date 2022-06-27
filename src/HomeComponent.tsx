@@ -8,7 +8,7 @@ type Materials = {
     Deploy: boolean,
     Name: string,
     Text: string,
-    Attachments?: string[],
+    Attachments?: any[],
     ID: number
   }
 }[]
@@ -36,6 +36,7 @@ export function HomeComponent() {
       .catch((e) => console.warn(e))
   }, [])
 
+
   return (
     <>
       <section className={`advantages ${!old ? 'loading' : ''}`}>
@@ -45,6 +46,7 @@ export function HomeComponent() {
           </div>
           {old && <div style={{ display: 'flex', justifyContent: 'center', gap: ' 20px', flexWrap: 'wrap' }}>
             {old.map((e) => {
+              console.log(e.fields.Attachments);
               return (
                 <Link to={`/old/${e.id}`}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -60,7 +62,7 @@ export function HomeComponent() {
                       }}>
                         НЕТ ИЗОБРАЖЕНИЯ
                       </div>}
-                    {e.fields.Attachments && <img src={e.fields.Attachments[0]} alt="" style={{ border: '3px solid #000' }} />}
+                    {e.fields.Attachments && <img src={e.fields.Attachments[0].thumbnails.large.url} alt="" style={{ border: '3px solid #000', width: '300px', height: '300px',objectFit:'cover' }} />}
                     <span style={{ marginTop: '20px', fontSize: '25px' }}>{e.fields.Name}</span>
                   </div>
                 </Link>

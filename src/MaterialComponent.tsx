@@ -8,7 +8,7 @@ export type Material = {
 		Deploy: boolean,
 		Name: string,
 		Text: string,
-		Attachments?: string[],
+		Attachments?: any[],
 		ID: number
 	}
 }
@@ -40,9 +40,11 @@ export function MaterialComponent(props: { mode: 'old' | 'new' }) {
 				<div style={{ width: '100%', display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
 					{material && <div>
 						<h2>{material.fields.Name}</h2>
-						<div>
-
-						</div>
+						{material.fields.Attachments && <div style={{display:'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+							{material.fields.Attachments?.map((e) => (
+								<img src={e.thumbnails.large.url} alt="" style={{ width: '200px', height: '200px' }} />
+							))}
+						</div>}
 						<div style={{ padding: '0 15px' }}>
 							{material.fields.Text.split('|').map((a) => {
 								return (
